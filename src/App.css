@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+html, body, #app, #app>div {
+  height: 100%;
+}
+
+.titleize {
+  text-transform: capitalize;
+}
