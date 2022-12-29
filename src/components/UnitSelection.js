@@ -15,15 +15,16 @@ export default class UnitSelection extends Component {
             headers: headers
         }).then(response => {
             let responseHtml = response.data;
-            let win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top=0,left=0");
+            let win = window.open("", "_blank", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top=0,left=0");
             debugger;
             win.document.body.innerHTML = responseHtml;
         });
     }
 
     render() {
+        const className = this.props.selectedUnits.length > 0 ? "pb-5" : "pb-5 hidden";
         return (
-            <div>
+            <div className={className}>
                 <ul>
                     {
                         this.props.selectedUnits.map((unit, i) => {

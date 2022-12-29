@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import UnitTable from "./components/UnitTable";
 import Modal from "./components/Modal";
 import UnitSelection from "./components/UnitSelection";
+import axios from "axios";
 
 function App() {
 
@@ -15,17 +16,17 @@ function App() {
     const [showModal, setShowModal] = useState(false);
     const [sheetHtml, setSheetHtml] = useState("<div></div>");
 
+    axios.defaults.baseURL = process.env.REACT_APP_MUL_API_URL;
+
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_MUL_API_URL}/units`, {mode: 'cors'})
-            .then(response => response.json())
-            .then(data => setUnits(data));
+        axios.get("/units")
+            .then(response => setUnits(response.data));
     }, []);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_MUL_API_URL}/unit_types`, {mode: 'cors'})
-            .then(response => response.json())
-            .then(data => {
-                data = data.sort((a, b) => a.name > b.name);
+        axios.get("/unit_types")
+            .then(response => {
+                const data = response.data.sort((a, b) => a.name > b.name);
                 setUnitTypes(data);
                 setCurrentUnitType(data[0]);
             })
